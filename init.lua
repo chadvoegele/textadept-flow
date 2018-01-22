@@ -13,7 +13,7 @@ end
 
 taflo.complete = function ()
   taflo.start_server()
-  local line, pos = buffer:get_cur_line()
+  local _, pos = buffer:get_cur_line()
   local line_no = buffer:line_from_position(buffer.current_pos)
   local flow_command = table.concat({
     'flow',
@@ -27,7 +27,7 @@ taflo.complete = function ()
   local flow_proc = spawn(flow_command)
   flow_proc:write(buffer:get_text())
   flow_proc:close()
-  local part = line:sub(1, pos):match('%s*([^%s]*)')
+  local part = ''
   local list = { }
   local flow_line = flow_proc:read()
   while flow_line ~= nil and flow_line ~= '' do
